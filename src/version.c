@@ -703,8 +703,7 @@ static char *(features[]) =
 };
 
 static int included_patches[] =
-{   /* Add new patch number below this line */
-/**/
+{
     0
 };
 
@@ -1181,14 +1180,14 @@ intro_message(
     char	*p;
     static char	*(lines[]) =
     {
-	N_("VIM - Vi IMproved"),
+	N_("EVi - Vi for Programmers, not AI users."),
 	"",
 	N_("version "),
-	N_("by Bram Moolenaar et al."),
+	N_("by Bram Moolenaar et al. and EVi Developers et al."),
 #ifdef MODIFIED_BY
 	" ",
 #endif
-	N_("Vim is open source and freely distributable"),
+	N_("EVi is open source and freely distributable"),
 	"",
 	N_("Help poor children in Uganda!"),
 	N_("type  :help iccf<Enter>       for information "),

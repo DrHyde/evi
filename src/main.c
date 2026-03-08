@@ -1919,9 +1919,8 @@ parse_command_name(mparm_T *parmp)
     }
 
     // Use evim mode for "evim" and "egvim", not for "editor".
-    if (TOLOWER_ASC(initstr[0]) == 'e'
-	    && (TOLOWER_ASC(initstr[1]) == 'v'
-		|| TOLOWER_ASC(initstr[1]) == 'g'))
+    if (STRNICMP(initstr, "evim", 4) == 0
+	|| STRNICMP(initstr, "egvim", 5) == 0)
     {
 #ifdef FEAT_GUI
 	gui.starting = TRUE;

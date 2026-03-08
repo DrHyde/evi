@@ -1,6 +1,6 @@
 # Unixen: object and executable files.
 *.o
-src/vim
+src/evi
 src/xxd/xxd
 src/auto/if_perl.c
 src/auto/gui_gtk_gresources.c

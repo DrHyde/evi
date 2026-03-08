@@ -93,8 +93,8 @@ syntaxtest:
 #    To do all this you need the Unix archive and compiled binaries.
 #    Before creating an archive first delete all backup files, *.orig, etc.
 
-MAJOR = 9
-MINOR = 1
+MAJOR = 10
+MINOR = 0
 
 # CHECKLIST for creating a new version:
 #
@@ -244,10 +244,10 @@ MINOR = 1
 # sync to before that and check the old version of this Makefile for
 # instructions.
 
-VIMVER	= vim-$(MAJOR).$(MINOR)
+VIMVER	= evi-$(MAJOR).$(MINOR)
 VERSION = $(MAJOR)$(MINOR)
 VDOT	= $(MAJOR).$(MINOR)
-VIMRTDIR = vim$(VERSION)
+VIMRTDIR = evi$(VERSION)
 
 # Vim used for conversion from "unix" to "dos"
 VIM	= vim

@@ -271,7 +271,7 @@ CC=
 
 # Defaults used when auto/config.mk does not exist.
 srcdir = .
-VIMNAME = vim
+VIMNAME = evi
 EXNAME = ex
 VIEWNAME = view
 
@@ -983,13 +983,13 @@ TOOLS = xxd/xxd$(EXEEXT)
 MAN1DIR = /man1
 
 ### Vim version (adjusted by a script)
-VIMMAJOR = 9
-VIMMINOR = 1
+VIMMAJOR = 10
+VIMMINOR = 0
 
 ### Location of Vim files (should not need to be changed, and  {{{1
 ### some things might not work when they are changed!)
-VIMDIR = /vim
-VIMRTDIR = /vim$(VIMMAJOR)$(VIMMINOR)
+VIMDIR = /evi
+VIMRTDIR = /evi$(VIMMAJOR)$(VIMMINOR)
 HELPSUBDIR = /doc
 COLSUBDIR = /colors
 SYNSUBDIR = /syntax
