@@ -2205,13 +2205,6 @@ apply_autocmds_group(
     forward_slash(fname);
 #endif
 
-#ifdef VMS
-    // remove version for correct match
-    if (sfname != NULL)
-	vms_remove_version(sfname);
-    vms_remove_version(fname);
-#endif
-
     /*
      * Set the name to be used for <amatch>.
      */

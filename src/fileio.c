@@ -442,11 +442,6 @@ readfile(
 	     */
 	    swap_mode = (st.st_mode & 0644) | 0600;
 #endif
-#ifdef VMS
-	    curbuf->b_fab_rfm = st.st_fab_rfm;
-	    curbuf->b_fab_rat = st.st_fab_rat;
-	    curbuf->b_fab_mrs = st.st_fab_mrs;
-#endif
 	}
 	else
 	{
@@ -3618,9 +3613,6 @@ buf_modname(
 	if (retval == NULL)
 	    return NULL;
 	STRCPY(retval, fname);
-#ifdef VMS
-	vms_remove_version(retval); // we do not need versions here
-#endif
     }
 
     /*
@@ -5381,28 +5373,11 @@ vim_tempname(
 #  else
     char_u	*p;
 
-#   ifdef VMS_TEMPNAM
-    // mktemp() is not working on VMS.  It seems to be
-    // a do-nothing function. Therefore we use tempnam().
-    sprintf((char *)itmp, "VIM%c", extra_char);
-    p = (char_u *)tempnam("tmp:", (char *)itmp);
-    if (p != NULL)
-    {
-	// VMS will use '.LIS' if we don't explicitly specify an extension,
-	// and VIM will then be unable to find the file later
-	STRCPY(itmp, p);
-	STRCAT(itmp, ".txt");
-	free(p);
-    }
-    else
-	return NULL;
-#   else
     STRCPY(itmp, TEMPNAME);
     if ((p = vim_strchr(itmp, '?')) != NULL)
 	*p = extra_char;
     if (mktemp((char *)itmp) == NULL)
 	return NULL;
-#   endif
 #  endif
 
     return vim_strsave(itmp);

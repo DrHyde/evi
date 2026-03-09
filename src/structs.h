@@ -3018,11 +3018,6 @@ struct file_buffer
     dev_t	b_dev;		// device number
     ino_t	b_ino;		// inode number
 #endif
-#ifdef VMS
-    char	 b_fab_rfm;	// Record format
-    char	 b_fab_rat;	// Record attribute
-    unsigned int b_fab_mrs;	// Max record size
-#endif
     int		b_fnum;		// buffer number for this file.
     char_u	b_key[VIM_SIZEOF_INT * 2 + 1];
 				// key used for buf_hashtab, holds b_fnum as

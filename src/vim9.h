@@ -11,10 +11,6 @@
  * vim9.h: types and globals used for Vim9 script.
  */
 
-#ifdef VMS
-# include <float.h>
-#endif
-
 typedef enum {
     ISN_EXEC,	    // execute Ex command line isn_arg.string
     ISN_EXECCONCAT, // execute Ex command from isn_arg.number items on stack

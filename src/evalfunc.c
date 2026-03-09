@@ -16,10 +16,6 @@
 
 #if defined(FEAT_EVAL) || defined(PROTO)
 
-#ifdef VMS
-# include <float.h>
-#endif
-
 static void f_and(typval_T *argvars, typval_T *rettv);
 #ifdef FEAT_BEVAL
 static void f_balloon_gettext(typval_T *argvars, typval_T *rettv);
@@ -5680,13 +5676,7 @@ f_has(typval_T *argvars, typval_T *rettv)
 		0
 #endif
 		},
-	{"vms",
-#ifdef VMS
-		1
-#else
-		0
-#endif
-		},
+	{"vms", 0 },
 	{"win32",
 #ifdef MSWIN
 		1
@@ -6961,7 +6951,48 @@ f_hostname(typval_T *argvars UNUSED, typval_T *rettv)
 }
 
 /*
- * "index()" function
+ * "id()" function
+ * Identity. Return address of item as a hex string, %p format.
+ * Currently only valid for object/container types.
+ * Return empty string if not an object.
+ */
+    static void
+f_id(typval_T *argvars, typval_T *rettv)
+{
+    char    numbuf[NUMBUFLEN];
+    char    *p = numbuf;
+
+    switch (argvars[0].v_type)
+    {
+	case VAR_LIST:
+	case VAR_TUPLE:
+	case VAR_DICT:
+	case VAR_OBJECT:
+	case VAR_JOB:
+	case VAR_CHANNEL:
+	case VAR_BLOB:
+	    // Assume pointer value in typval_T vval union at common location.
+	    if (argvars[0].vval.v_object != NULL)
+	    {
+		// "v" gets the address as an integer
+		uintptr_t v = (uintptr_t)(void *)argvars[0].vval.v_object;
+		// Build a hex string from the item's address; it is in
+		// reverse order. Ignore trailing zeros.
+		for (; p < numbuf + sizeof(uintptr_t) * 2 && v != 0;
+								++p, v >>= 4)
+		    *p = "0123456789abcdef"[v & 0xf];
+	    }
+	default:
+	    break;
+    }
+    *p = NUL;
+
+    rettv->v_type = VAR_STRING;
+    rettv->vval.v_string = vim_strsave((char_u *)numbuf);
+}
+
+/*
+ * index() function for a blob
  */
     static void
 f_index(typval_T *argvars, typval_T *rettv)

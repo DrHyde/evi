@@ -497,11 +497,7 @@ repeat:
 	s = get_past_head(*fnamep);
 	while (tail > s && after_pathsep(s, tail))
 	    MB_PTR_BACK(*fnamep, tail);
-	*fnamelen = (int)(tail - *fnamep);
-#ifdef VMS
-	if (*fnamelen > 0)
-	    *fnamelen += 1; // the path separator is part of the path
-#endif
+	*fnamelen = tail - *fnamep;
 	if (*fnamelen == 0)
 	{
 	    // Result is empty.  Turn it into "." to make ":cd %:h" work.
@@ -603,15 +599,6 @@ repeat:
 	    {
 		*fnamelen += (int)(*fnamep - (s + 1));
 		*fnamep = s + 1;
-#ifdef VMS
-		// cut version from the extension
-		s = *fnamep + *fnamelen - 1;
-		for ( ; s > *fnamep; --s)
-		    if (s[0] == ';')
-			break;
-		if (s > *fnamep)
-		    *fnamelen = s - *fnamep;
-#endif
 	    }
 	    else if (*fnamep <= tail)
 		*fnamelen = 0;
@@ -2691,11 +2678,7 @@ home_replace(
     if (homedir != NULL)
 	dirlen = STRLEN(homedir);
 
-#ifdef VMS
-    homedir_env_orig = homedir_env = mch_getenv((char_u *)"SYS$LOGIN");
-#else
     homedir_env_orig = homedir_env = mch_getenv((char_u *)"HOME");
-#endif
 #ifdef MSWIN
     if (homedir_env == NULL)
 	homedir_env_orig = homedir_env = mch_getenv((char_u *)"USERPROFILE");
@@ -2921,10 +2904,6 @@ gettail_sep(char_u *fname)
     t = gettail(fname);
     while (t > p && after_pathsep(fname, t))
 	--t;
-#ifdef VMS
-    // path separator is part of the path
-    ++t;
-#endif
     return t;
 }
 
@@ -2987,13 +2966,7 @@ vim_ispathsep(int c)
 # ifdef BACKSLASH_IN_FILENAME
     return (c == ':' || c == '/' || c == '\\');
 # else
-#  ifdef VMS
-    // server"user passwd"::device:[full.path.name]fname.extension;version"
-    return (c == ':' || c == '[' || c == ']' || c == '/'
-	    || c == '<' || c == '>' || c == '"' );
-#  else
     return (c == ':' || c == '/');
-#  endif // VMS
 # endif
 #endif
 }
@@ -3249,9 +3222,6 @@ expand_wildcards(
 	    ffname = FullName_save((*files)[i], FALSE);
 	    if (ffname == NULL)		// out of memory
 		break;
-# ifdef VMS
-	    vms_remove_version(ffname);
-# endif
 	    if (match_file_list(p_wig, (*files)[i], ffname))
 	    {
 		// remove this matching file from the list

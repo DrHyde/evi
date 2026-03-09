@@ -961,11 +961,7 @@ fill_input_buf(int exit_on_error UNUSED)
     {
 	size_t readlen = (size_t)((INBUFLEN - inbufcount)
 						       / input_conv.vc_factor);
-#  ifdef VMS
-	len = vms_read((char *)inbuf + inbufcount, readlen);
-#  else
 	len = read(read_cmd_fd, (char *)inbuf + inbufcount, readlen);
-#  endif
 #  ifdef FEAT_EVAL
 	if (len > 0)
 	{

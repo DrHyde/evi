@@ -30,11 +30,7 @@
 # include <Xm/XpmP.h>
 #else
 # ifdef HAVE_X11_XPM_H
-#  ifdef VMS
-#   include <xpm.h>
-#  else
-#   include <X11/xpm.h>
-#  endif
+#  include <X11/xpm.h>
 # endif
 #endif
 

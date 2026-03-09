@@ -1203,11 +1203,7 @@ init_homedir(void)
     // In case we are called a second time (when 'encoding' changes).
     VIM_CLEAR(homedir);
 
-#ifdef VMS
-    var = mch_getenv((char_u *)"SYS$LOGIN");
-#else
     var = mch_getenv((char_u *)"HOME");
-#endif
 
 #ifdef MSWIN
     /*
@@ -1437,9 +1433,6 @@ expand_env_esc(
 #endif
 	copy_char = TRUE;
 	if ((*src == '$'
-#ifdef VMS
-		    && at_start
-#endif
 	   )
 #if defined(MSWIN)
 		|| *src == '%'
@@ -2393,12 +2386,7 @@ get_cmd_output(
     /*
      * read the names from the file into memory
      */
-# ifdef VMS
-    // created temporary file is not always readable as binary
-    fd = mch_fopen((char *)tempname, "r");
-# else
     fd = mch_fopen((char *)tempname, READBIN);
-# endif
 
     // Not being able to seek means we can't read the file.
     if (fd == NULL
@@ -2419,9 +2407,6 @@ get_cmd_output(
     mch_remove(tempname);
     if (buffer == NULL)
 	goto done;
-#ifdef VMS
-    len = i;	// VMS doesn't give us what we asked for...
-#endif
     if (i != len)
     {
 	semsg(_(e_cant_read_file_str), tempname);

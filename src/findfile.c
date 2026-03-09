@@ -2591,25 +2591,11 @@ simplify_filename(char_u *filename)
     {
 	// At this point "p" is pointing to the char following a single "/"
 	// or "p" is at the "start" of the (absolute or relative) path name.
-# ifdef VMS
-	// VMS allows device:[path] - don't strip the [ in directory
-	if ((*p == '[' || *p == '<') && p > filename && p[-1] == ':')
+	if (vim_ispathsep(*p))
 	{
-	    // :[ or :< composition: vms directory component
-	    ++components;
-	    p = getnextcomp(p + 1);
+	    mch_memmove(p, p + 1, (size_t)(p_end - (p + 1)) + 1); // remove duplicate "/"
+	    --p_end;
 	}
-	// allow remote calls as host"user passwd"::device:[path]
-	else if (p[0] == ':' && p[1] == ':' && p > filename && p[-1] == '"' )
-	{
-	    // ":: composition: vms host/passwd component
-	    ++components;
-	    p = getnextcomp(p + 2);
-	}
-	else
-# endif
-	  if (vim_ispathsep(*p))
-	    STRMOVE(p, p + 1);		// remove duplicate "/"
 	else if (p[0] == '.' && (vim_ispathsep(p[1]) || p[1] == NUL))
 	{
 	    if (p == start && relative)

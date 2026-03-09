@@ -1661,10 +1661,6 @@ extern char_u *default_vim_dir;
 extern char_u *default_vimruntime_dir;
 extern char_u *all_cflags;
 extern char_u *all_lflags;
-# ifdef VMS
-extern char_u *compiler_version;
-extern char_u *compiled_arch;
-# endif
 extern char_u *compiled_user;
 extern char_u *compiled_sys;
 #endif

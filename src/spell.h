@@ -131,15 +131,9 @@ struct slang_S
 				// handled, see add_sound_suggest()
 };
 
-#ifdef VMS
-# define SPL_FNAME_TMPL  "%s_%s.spl"
-# define SPL_FNAME_ADD   "_add."
-# define SPL_FNAME_ASCII "_ascii."
-#else
-# define SPL_FNAME_TMPL  "%s.%s.spl"
-# define SPL_FNAME_ADD   ".add."
-# define SPL_FNAME_ASCII ".ascii."
-#endif
+#define SPL_FNAME_TMPL  "%s.%s.spl"
+#define SPL_FNAME_ADD   ".add."
+#define SPL_FNAME_ASCII ".ascii."
 
 // Flags used for a word.  Only the lowest byte can be used, the region byte
 // comes above it.
