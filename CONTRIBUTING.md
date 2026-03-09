@@ -10,7 +10,7 @@ fixes should be tested for regressions: the test should fail before the fix and
 pass after the fix.  Look through recent patches for examples and find help
 with ":help testing".  The tests are located under "src/testdir".
 
-Contributions will be distributed with EVi under the Evi license. Providing a
+Contributions will be distributed with EVi under the EVi license. Providing a
 change to be included implies that you agree with this and your contribution
 does not cause us trouble with trademarks or patents. There is no CLA to sign.
 
