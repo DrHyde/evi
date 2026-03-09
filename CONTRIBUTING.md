@@ -16,7 +16,7 @@ does not cause us trouble with trademarks or patents. There is no CLA to sign.
 
 ## Using AI
 
-Using generative AI for patches is not accepted in EVi.
+Using generative AI for patches is not accepted in EVi. Attempting to send in AI-written patches or AI-created PRs will result in a permanent ban from contributing with no chance of appealing.
 
 # Reporting issues
 
