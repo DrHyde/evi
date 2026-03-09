@@ -161,10 +161,10 @@ typedef void (*sighandler_T) SIGPROTOARG;
  * Unix system-dependent file names
  */
 #ifndef SYS_VIMRC_FILE
-# define SYS_VIMRC_FILE "$VIM/vimrc"
+# define SYS_VIMRC_FILE "$VIM/evirc"
 #endif
 #ifndef SYS_GVIMRC_FILE
-# define SYS_GVIMRC_FILE "$VIM/gvimrc"
+# define SYS_GVIMRC_FILE "$VIM/gevirc"
 #endif
 #ifndef DFLT_HELPFILE
 # define DFLT_HELPFILE	"$VIMRUNTIME/doc/help.txt"
@@ -182,30 +182,36 @@ typedef void (*sighandler_T) SIGPROTOARG;
 #endif
 
 #ifndef USR_VIMRC_FILE
-# define USR_VIMRC_FILE "$HOME/.vimrc"
+# define USR_VIMRC_FILE "$HOME/.evirc"
 #endif
 
 
 #if !defined(USR_VIMRC_FILE2)
-# define USR_VIMRC_FILE2	"~/.vim/vimrc"
+# define USR_VIMRC_FILE2	"~/.evi/evirc"
+#endif
+
+#ifndef XDG_VIMRC_FILE
+# define XDG_VIMRC_FILE (mch_getenv((char_u *)"XDG_CONFIG_HOME") \
+	? "$XDG_CONFIG_HOME/evi/evirc" \
+	: "~/.config/evi/evirc")
 #endif
 
 #if !defined(USR_VIMRC_FILE3) && defined(VMS)
-# define USR_VIMRC_FILE3 "sys$login:_vimrc"
+# define USR_VIMRC_FILE3 "sys$login:_evirc"
 #endif
 
 #ifndef USR_GVIMRC_FILE
-# define USR_GVIMRC_FILE "$HOME/.gvimrc"
+# define USR_GVIMRC_FILE "$HOME/.gevirc"
 #endif
 
 #ifndef USR_GVIMRC_FILE2
-# define USR_GVIMRC_FILE2	"~/.vim/gvimrc"
+# define USR_GVIMRC_FILE2	"~/.evi/gevirc"
 #endif
 
 #ifndef USR_GVIMRC_FILE3
 # define USR_GVIMRC_FILE3 (mch_getenv("XDG_CONFIG_HOME") \
-	? "$XDG_CONFIG_HOME/vim/gvimrc" \
-	: "~/.config/vim/gvimrc")
+	? "$XDG_CONFIG_HOME/evi/gevirc" \
+	: "~/.config/evi/gevirc")
 #endif
 
 #ifndef VIM_DEFAULTS_FILE
@@ -230,12 +236,12 @@ typedef void (*sighandler_T) SIGPROTOARG;
 #endif
 
 #ifndef VIMRC_FILE
-# define VIMRC_FILE	".vimrc"
+# define VIMRC_FILE	".evirc"
 #endif
 
 #ifdef FEAT_GUI
 # ifndef GVIMRC_FILE
-#  define GVIMRC_FILE	".gvimrc"
+#  define GVIMRC_FILE	".gevirc"
 # endif
 #endif
 
@@ -252,9 +258,9 @@ typedef void (*sighandler_T) SIGPROTOARG;
 #endif
 
 #ifndef DFLT_VDIR
-# define DFLT_VDIR    "$HOME/.vim/view"       // default for 'viewdir'
+# define DFLT_VDIR    "$HOME/.evi/view"       // default for 'viewdir'
 # define XDG_VDIR     (mch_getenv("XDG_CONFIG_HOME") ? \
-	"$XDG_CONFIG_HOME/vim/view" : "~/.config/vim/view")
+	"$XDG_CONFIG_HOME/evi/view" : "~/.config/evi/view")
 #endif
 
 #define DFLT_ERRORFILE		"errors.err"
