@@ -72,15 +72,9 @@
 
 // always use unlink() to remove files
 #ifndef PROTO
-# ifdef VMS
-#  define vim_mkdir(x, y) mkdir((char *)vms_fixfilename(x), y)
-#  define mch_rmdir(x)  delete((char *)vms_fixfilename(x))
-#  define mch_remove(x) delete((char *)vms_fixfilename(x))
-# else
-#  define vim_mkdir(x, y) mkdir((char *)(x), y)
-#  define mch_rmdir(x) rmdir((char *)(x))
-#  define mch_remove(x) unlink((char *)(x))
-# endif
+# define vim_mkdir(x, y) mkdir((char *)(x), y)
+# define mch_rmdir(x) rmdir((char *)(x))
+# define mch_remove(x) unlink((char *)(x))
 #endif
 
 // The number of arguments to a signal handler is configured here.
@@ -159,49 +153,8 @@ typedef void (*sighandler_T) SIGPROTOARG;
 #endif
 
 
-#ifndef PROTO
-
-#ifdef VMS
-# include <unixio.h>
-# include <unixlib.h>
-# include <signal.h>
-# include <file.h>
-# include <ssdef.h>
-# include <descrip.h>
-# include <libclidef.h>
-# include <lnmdef.h>
-# include <psldef.h>
-# include <prvdef.h>
-# include <dvidef.h>
-# include <dcdef.h>
-# include <stsdef.h>
-# include <iodef.h>
-# include <ttdef.h>
-# include <tt2def.h>
-# include <jpidef.h>
-# include <rms.h>
-# include <trmdef.h>
-# include <string.h>
-# include <starlet.h>
-# include <socket.h>
-# include <lib$routines.h>
-# include <libdef.h>
-# include <libdtdef.h>
-
-# if defined(FEAT_GUI_MOTIF)
-#  define XFree XFREE
-#  define XmRepTypeInstallTearOffModelCon XMREPTYPEINSTALLTEAROFFMODELCON
-# endif
-#endif // VMS
-
 #ifdef HAVE_FLOCK
 # include <sys/file.h>
-#endif
-
-#endif // PROTO
-
-#ifdef VMS
-typedef struct dsc$descriptor   DESC;
 #endif
 
 /*
@@ -221,11 +174,7 @@ typedef struct dsc$descriptor   DESC;
 #endif
 
 #ifndef USR_EXRC_FILE
-# ifdef VMS
-#  define USR_EXRC_FILE "sys$login:.exrc"
-# else
-#  define USR_EXRC_FILE "$HOME/.exrc"
-# endif
+# define USR_EXRC_FILE "$HOME/.exrc"
 #endif
 
 #if !defined(USR_EXRC_FILE2) && defined(VMS)
@@ -233,20 +182,12 @@ typedef struct dsc$descriptor   DESC;
 #endif
 
 #ifndef USR_VIMRC_FILE
-# ifdef VMS
-# define USR_VIMRC_FILE  "sys$login:.vimrc"
-# else
-#  define USR_VIMRC_FILE "$HOME/.vimrc"
-# endif
+# define USR_VIMRC_FILE "$HOME/.vimrc"
 #endif
 
 
 #if !defined(USR_VIMRC_FILE2)
-# ifdef VMS
-#  define USR_VIMRC_FILE2	"sys$login:vimfiles/vimrc"
-# else
-#   define USR_VIMRC_FILE2	"~/.vim/vimrc"
-# endif
+# define USR_VIMRC_FILE2	"~/.vim/vimrc"
 #endif
 
 #if !defined(USR_VIMRC_FILE3) && defined(VMS)
@@ -254,25 +195,17 @@ typedef struct dsc$descriptor   DESC;
 #endif
 
 #ifndef USR_GVIMRC_FILE
-# ifdef VMS
-#  define USR_GVIMRC_FILE "sys$login:.gvimrc"
-# else
-#  define USR_GVIMRC_FILE "$HOME/.gvimrc"
-# endif
+# define USR_GVIMRC_FILE "$HOME/.gvimrc"
 #endif
 
 #ifndef USR_GVIMRC_FILE2
-# ifdef VMS
-#  define USR_GVIMRC_FILE2	"sys$login:vimfiles/gvimrc"
-# else
-#  define USR_GVIMRC_FILE2	"~/.vim/gvimrc"
-# endif
+# define USR_GVIMRC_FILE2	"~/.vim/gvimrc"
 #endif
 
-#ifdef VMS
-# ifndef USR_GVIMRC_FILE3
-#  define USR_GVIMRC_FILE3  "sys$login:_gvimrc"
-# endif
+#ifndef USR_GVIMRC_FILE3
+# define USR_GVIMRC_FILE3 (mch_getenv("XDG_CONFIG_HOME") \
+	? "$XDG_CONFIG_HOME/vim/gvimrc" \
+	: "~/.config/vim/gvimrc")
 #endif
 
 #ifndef VIM_DEFAULTS_FILE
@@ -285,11 +218,7 @@ typedef struct dsc$descriptor   DESC;
 
 #ifdef FEAT_VIMINFO
 # ifndef VIMINFO_FILE
-#  ifdef VMS
-#   define VIMINFO_FILE  "sys$login:.viminfo"
-#  else
-#   define VIMINFO_FILE "$HOME/.viminfo"
-#  endif
+#  define VIMINFO_FILE "$HOME/.viminfo"
 # endif
 # if !defined(VIMINFO_FILE2) && defined(VMS)
 #  define VIMINFO_FILE2 "sys$login:_viminfo"
@@ -315,64 +244,47 @@ typedef struct dsc$descriptor   DESC;
 #endif
 
 #ifndef DFLT_BDIR
-# ifdef VMS
-#  define DFLT_BDIR    "./,sys$login:,tmp:"
-# else
-#  define DFLT_BDIR    ".,~/tmp,~/"    // default for 'backupdir'
-# endif
+# define DFLT_BDIR    ".,~/tmp,~/"    // default for 'backupdir'
 #endif
 
 #ifndef DFLT_DIR
-# ifdef VMS
-#  define DFLT_DIR     "./,sys$login:,tmp:"
-# else
-#  define DFLT_DIR     ".,~/tmp,/var/tmp,/tmp" // default for 'directory'
-# endif
+# define DFLT_DIR     ".,~/tmp,/var/tmp,/tmp" // default for 'directory'
 #endif
 
 #ifndef DFLT_VDIR
-# ifdef VMS
-#  define DFLT_VDIR    "sys$login:vimfiles/view"
-# else
-#  define DFLT_VDIR    "$HOME/.vim/view"       // default for 'viewdir'
-# endif
+# define DFLT_VDIR    "$HOME/.vim/view"       // default for 'viewdir'
+# define XDG_VDIR     (mch_getenv("XDG_CONFIG_HOME") ? \
+	"$XDG_CONFIG_HOME/vim/view" : "~/.config/vim/view")
 #endif
 
 #define DFLT_ERRORFILE		"errors.err"
 
 #ifndef DFLT_RUNTIMEPATH
 
-# ifdef VMS
-#  define DFLT_RUNTIMEPATH      "sys$login:vimfiles,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,sys$login:vimfiles/after"
-#  define CLEAN_RUNTIMEPATH      "$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after"
-# else
-#  ifdef RUNTIME_GLOBAL
-#   ifdef RUNTIME_GLOBAL_AFTER
-#    define DFLT_RUNTIMEPATH	"~/.vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",~/.vim/after"
-#    define CLEAN_RUNTIMEPATH	RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER
-#   else
-#    define DFLT_RUNTIMEPATH	"~/.vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,~/.vim/after"
-#    define CLEAN_RUNTIMEPATH	RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after"
-#   endif
+# ifdef RUNTIME_GLOBAL
+#  ifdef RUNTIME_GLOBAL_AFTER
+#   define DFLT_RUNTIMEPATH	"~/.vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",~/.vim/after"
+#   define XDG_RUNTIMEPATH	"$XDG_CONFIG_HOME/vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",$XDG_CONFIG_HOME/vim/after"
+#   define XDG_RUNTIMEPATH_FB	"~/.config/vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",~/.config/vim/after"
+#   define CLEAN_RUNTIMEPATH	RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER
 #  else
-#   define DFLT_RUNTIMEPATH	"~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after"
-#   define CLEAN_RUNTIMEPATH	"$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after"
+#   define DFLT_RUNTIMEPATH	"~/.vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,~/.vim/after"
+#   define XDG_RUNTIMEPATH	"$XDG_CONFIG_HOME/vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,$XDG_CONFIG_HOME/vim/after"
+#   define XDG_RUNTIMEPATH_FB	"~/.config/vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,~/.config/vim/after"
+#   define CLEAN_RUNTIMEPATH	RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after"
 #  endif
+# else
+#  define DFLT_RUNTIMEPATH	"~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after"
+#  define XDG_RUNTIMEPATH	"$XDG_CONFIG_HOME/vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$XDG_CONFIG_HOME/vim/after"
+#  define XDG_RUNTIMEPATH_FB	"~/.config/vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.config/vim/after"
+#  define CLEAN_RUNTIMEPATH	"$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after"
 # endif
 
 #endif
 
-#ifdef VMS
-# ifndef VAX
-#  define VMS_TEMPNAM    // to fix default .LIS extension
-# endif
-# define TEMPNAME       "TMP:v?XXXXXX.txt"
-# define TEMPNAMELEN    28
-#else
 // Try several directories to put the temp files.
-# define TEMPDIRNAMES  "$TMPDIR", "/tmp", ".", "$HOME"
-# define TEMPNAMELEN    256
-#endif
+#define TEMPDIRNAMES  "$TMPDIR", "/tmp", ".", "$HOME"
+#define TEMPNAMELEN    256
 
 // Special wildcards that need to be handled by the shell
 #define SPECIAL_WILDCHAR    "`'{"
@@ -391,20 +303,11 @@ typedef struct dsc$descriptor   DESC;
 
 #define CHECK_INODE		// used when checking if a swap file already
 				// exists for a file
-#ifdef VMS  // Use less memory because of older systems
-# ifndef DFLT_MAXMEM
-#  define DFLT_MAXMEM (2*1024)
-# endif
-# ifndef DFLT_MAXMEMTOT
-#  define DFLT_MAXMEMTOT (5*1024)
-# endif
-#else
-# ifndef DFLT_MAXMEM
-#  define DFLT_MAXMEM	(5*1024)	 // use up to 5 Mbyte for a buffer
-# endif
-# ifndef DFLT_MAXMEMTOT
-#  define DFLT_MAXMEMTOT	(10*1024)    // use up to 10 Mbyte for Vim
-# endif
+#ifndef DFLT_MAXMEM
+# define DFLT_MAXMEM	(5*1024)	 // use up to 5 Mbyte for a buffer
+#endif
+#ifndef DFLT_MAXMEMTOT
+# define DFLT_MAXMEMTOT	(10*1024)    // use up to 10 Mbyte for Vim
 #endif
 
 // memmove() is not present on all systems, use memmove, bcopy or memcpy.

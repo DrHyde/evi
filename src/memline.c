@@ -1919,11 +1919,7 @@ recover_names(
 	{
 	    if (fname == NULL)
 	    {
-#ifdef VMS
-		names[0] = vim_strsave((char_u *)"*_sw%");
-#else
 		names[0] = vim_strsave((char_u *)"*.sw?");
-#endif
 #if defined(UNIX) || defined(MSWIN)
 		// For Unix names starting with a dot are special.  MS-Windows
 		// supports this too, on some file systems.
@@ -1931,12 +1927,7 @@ recover_names(
 		names[2] = vim_strsave((char_u *)".sw?");
 		num_names = 3;
 #else
-# ifdef VMS
-		names[1] = vim_strsave((char_u *)".*_sw%");
-		num_names = 2;
-# else
 		num_names = 1;
-# endif
 #endif
 	    }
 	    else
@@ -1946,11 +1937,7 @@ recover_names(
 	{
 	    if (fname == NULL)
 	    {
-#ifdef VMS
-		names[0] = concat_fnames(dir_name, (char_u *)"*_sw%", TRUE);
-#else
 		names[0] = concat_fnames(dir_name, (char_u *)"*.sw?", TRUE);
-#endif
 #if defined(UNIX) || defined(MSWIN)
 		// For Unix names starting with a dot are special.  MS-Windows
 		// supports this too, on some file systems.
@@ -1958,12 +1945,7 @@ recover_names(
 		names[2] = concat_fnames(dir_name, (char_u *)".sw?", TRUE);
 		num_names = 3;
 #else
-# ifdef VMS
-		names[1] = concat_fnames(dir_name, (char_u *)".*_sw%", TRUE);
-		num_names = 2;
-# else
 		num_names = 1;
-# endif
 #endif
 	    }
 	    else
@@ -2429,11 +2411,7 @@ recov_file_names(char_u **names, char_u *path, int prepend_dot)
     /*
      * Form the normal swap file name pattern by appending ".sw?".
      */
-#ifdef VMS
-    names[num_names] = concat_fnames(path, (char_u *)"_sw%", FALSE);
-#else
     names[num_names] = concat_fnames(path, (char_u *)".sw?", FALSE);
-#endif
     if (names[num_names] == NULL)
 	goto end;
     if (num_names >= 1)	    // check if we have the same name twice
@@ -2456,11 +2434,7 @@ recov_file_names(char_u **names, char_u *path, int prepend_dot)
      * Also try with 'shortname' set, in case the file is on a DOS filesystem.
      */
     curbuf->b_shortname = TRUE;
-#ifdef VMS
-    names[num_names] = modname(path, (char_u *)"_sw%", FALSE);
-#else
     names[num_names] = modname(path, (char_u *)".sw?", FALSE);
-#endif
     if (names[num_names] == NULL)
 	goto end;
 

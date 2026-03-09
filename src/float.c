@@ -16,10 +16,6 @@
 
 #if defined(FEAT_EVAL) || defined(PROTO)
 
-#ifdef VMS
-# include <float.h>
-#endif
-
 /*
  * Convert the string "text" to a floating point number.
  * This uses strtod().  setlocale(LC_NUMERIC, "C") has been used to make sure

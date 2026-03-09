@@ -161,11 +161,7 @@ typedef int waitstatus;
 #endif
 static int  WaitForChar(long msec, int *interrupted, int ignore_input);
 static int  WaitForCharOrMouse(long msec, int *interrupted, int ignore_input);
-#ifdef VMS
-int  RealWaitForChar(int, long, int *, int *interrupted);
-#else
 static int  RealWaitForChar(int, long, int *, int *interrupted);
-#endif
 
 #ifdef FEAT_XCLIPBOARD
 static int do_xterm_trace(void);
@@ -412,11 +408,7 @@ mch_chdir(char *path)
 	smsg("chdir(%s)", path);
 	verbose_leave();
     }
-#ifdef VMS
-    return chdir(vms_fixfilename(path));
-#else
     return chdir(path);
-#endif
 }
 
 // Why is NeXT excluded here (and not in os_unixx.h)?
@@ -2526,12 +2518,7 @@ vim_is_vt300(char_u *name)
     int
 mch_get_user_name(char_u *s, int len)
 {
-#ifdef VMS
-    vim_strncpy(s, (char_u *)cuserid(NULL), len - 1);
-    return OK;
-#else
     return mch_get_uname(getuid(), s, len);
-#endif
 }
 
 /*
@@ -2674,10 +2661,6 @@ mch_FullName(
 #ifdef __CYGWIN__
     char_u	posix_fname[MAXPATHL];	// Cygwin docs mention MAX_PATH, but
 					// it's not always defined
-#endif
-
-#ifdef VMS
-    fname = vms_fixfilename(fname);
 #endif
 
 #ifdef __CYGWIN__
@@ -2825,14 +2808,7 @@ mch_FullName(
     int
 mch_isFullName(char_u *fname)
 {
-#ifdef VMS
-    return ( fname[0] == '/'	       || fname[0] == '.'	    ||
-	     strchr((char *)fname,':') || strchr((char *)fname,'"') ||
-	    (strchr((char *)fname,'[') && strchr((char *)fname,']'))||
-	    (strchr((char *)fname,'<') && strchr((char *)fname,'>'))   );
-#else
     return (*fname == '/' || *fname == '~');
-#endif
 }
 
 #if defined(USE_FNAME_CASE) || defined(PROTO)
@@ -2910,11 +2886,7 @@ mch_getperm(char_u *name)
     struct stat statb;
 
     // Keep the #ifdef outside of stat(), it may be a macro.
-#ifdef VMS
-    if (stat((char *)vms_fixfilename(name), &statb))
-#else
     if (stat((char *)name, &statb))
-#endif
 	return -1;
 #ifdef __INTERIX
     // The top bit makes the value negative, which means the file doesn't
@@ -2932,13 +2904,7 @@ mch_getperm(char_u *name)
     int
 mch_setperm(char_u *name, long perm)
 {
-    return (chmod((char *)
-#ifdef VMS
-		    vms_fixfilename(name),
-#else
-		    name,
-#endif
-		    (mode_t)perm) == 0 ? OK : FAIL);
+    return (chmod((char *) name, (mode_t)perm) == 0 ? OK : FAIL);
 }
 
 #if defined(HAVE_FCHMOD) || defined(PROTO)
@@ -3367,25 +3333,7 @@ executable_file(char_u *name)
 
     if (stat((char *)name, &st))
 	return 0;
-#ifdef VMS
-    // Like on Unix system file can have executable rights but not necessarily
-    // be an executable, but on Unix is not a default for an ordinary file to
-    // have an executable flag - on VMS it is in most cases.
-    // Therefore, this check does not have any sense - let keep us to the
-    // conventions instead:
-    // *.COM and *.EXE files are the executables - the rest are not. This is
-    // not ideal but better than it was.
-    int vms_executable = 0;
-    if (S_ISREG(st.st_mode) && mch_access((char *)name, X_OK) == 0)
-    {
-	if (strstr(vms_tolower((char*)name),".exe") != NULL
-		|| strstr(vms_tolower((char*)name),".com")!= NULL)
-	    vms_executable = 1;
-    }
-    return vms_executable;
-#else
     return S_ISREG(st.st_mode) && mch_access((char *)name, X_OK) == 0;
-#endif
 }
 
 /*
@@ -4739,10 +4687,6 @@ mch_call_shell_system(
     char_u	*cmd,
     int		options)	// SHELL_*, see vim.h
 {
-#ifdef VMS
-    char	*ifn = NULL;
-    char	*ofn = NULL;
-#endif
     tmode_T	tmode = cur_tmode;
     char_u	*newcmd;	// only needed for unix
     int		x;
@@ -4761,23 +4705,6 @@ mch_call_shell_system(
 	x = system((char *)p_sh);
     else
     {
-# ifdef VMS
-	if (ofn = strchr((char *)cmd, '>'))
-	    *ofn++ = '\0';
-	if (ifn = strchr((char *)cmd, '<'))
-	{
-	    char *p;
-
-	    *ifn++ = '\0';
-	    p = strchr(ifn,' '); // chop off any trailing spaces
-	    if (p)
-		*p = '\0';
-	}
-	if (ofn)
-	    x = vms_sys((char *)cmd, ofn, ifn);
-	else
-	    x = system((char *)cmd);
-# else
 	newcmd = alloc(STRLEN(p_sh)
 		+ (extra_shell_arg == NULL ? 0 : STRLEN(extra_shell_arg))
 		+ STRLEN(p_shcf) + STRLEN(cmd) + 4);
@@ -4792,11 +4719,7 @@ mch_call_shell_system(
 	    x = system((char *)newcmd);
 	    vim_free(newcmd);
 	}
-# endif
     }
-# ifdef VMS
-    x = vms_sys_status(x);
-# endif
     if (emsg_silent)
 	;
     else if (x == 127)
@@ -7337,13 +7260,7 @@ mch_has_exp_wildcard(char_u *p)
 	if (*p == '\\' && p[1] != NUL)
 	    ++p;
 	else
-	    if (vim_strchr((char_u *)
-#ifdef VMS
-				    "*?%"
-#else
-				    "*?[{'"
-#endif
-						, *p) != NULL)
+	    if (vim_strchr((char_u *) "*?[{'", *p) != NULL)
 	    return TRUE;
     }
     return FALSE;
@@ -7361,13 +7278,7 @@ mch_has_wildcard(char_u *p)
 	if (*p == '\\' && p[1] != NUL)
 	    ++p;
 	else
-	    if (vim_strchr((char_u *)
-#ifdef VMS
-				    "*?%$"
-#else
-				    "*?[{`'$"
-#endif
-						, *p) != NULL
+	    if (vim_strchr((char_u *) "*?[{`'$", *p) != NULL
 		|| (*p == '~' && p[1] != NUL))
 	    return TRUE;
     }

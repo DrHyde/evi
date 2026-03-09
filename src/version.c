@@ -949,18 +949,6 @@ list_version(void)
 # endif
 #endif
 
-#ifdef VMS
-    msg_puts(_("\nOpenVMS version"));
-# ifdef HAVE_PATHDEF
-    if (*compiled_arch != NUL)
-    {
-	msg_puts(" - ");
-	msg_puts((char *)compiled_arch);
-    }
-# endif
-
-#endif
-
     // Print the list of patch numbers if there is at least one.
     // Print a range when patches are consecutive: "1-10, 12, 15-40, 42-45"
     if (included_patches[0] != 0)
@@ -1131,14 +1119,6 @@ list_version(void)
     version_msg(_("Compilation: "));
     version_msg((char *)all_cflags);
     version_msg("\n");
-#ifdef VMS
-    if (*compiler_version != NUL)
-    {
-	version_msg(_("Compiler: "));
-	version_msg((char *)compiler_version);
-	version_msg("\n");
-    }
-#endif
     version_msg(_("Linking: "));
     version_msg((char *)all_lflags);
 #endif

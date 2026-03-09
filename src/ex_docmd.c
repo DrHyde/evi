@@ -7763,17 +7763,7 @@ changedir_func(
 #endif
     {
 	// use NameBuff for home directory name
-# ifdef VMS
-	char_u	*p;
-
-	p = mch_getenv((char_u *)"SYS$LOGIN");
-	if (p == NULL || *p == NUL)	// empty is the same as not set
-	    NameBuff[0] = NUL;
-	else
-	    vim_strncpy(NameBuff, p, MAXPATHL - 1);
-# else
 	expand_env((char_u *)"$HOME", NameBuff, MAXPATHL);
-# endif
 	new_dir = NameBuff;
     }
     dir_differs = pdir == NULL

@@ -326,15 +326,9 @@
 # define PATH_ESC_CHARS ((char_u *)" \t\n*?[{`%#'\"|!<")
 # define BUFFER_ESC_CHARS ((char_u *)" \t\n*?[`%#'\"|!<")
 #else
-# ifdef VMS
-    // VMS allows a lot of characters in the file name
-#  define PATH_ESC_CHARS ((char_u *)" \t\n*?{`\\%#'\"|!")
-#  define SHELL_ESC_CHARS ((char_u *)" \t\n*?{`\\%#'|!()&")
-# else
-#  define PATH_ESC_CHARS ((char_u *)" \t\n*?[{`$\\%#'\"|!<")
-#  define SHELL_ESC_CHARS ((char_u *)" \t\n*?[{`$\\%#'\"|!<>();&")
-# endif
-#  define BUFFER_ESC_CHARS ((char_u *)" \t\n*?[`$\\%#'\"|!<")
+# define PATH_ESC_CHARS ((char_u *)" \t\n*?[{`$\\%#'\"|!<")
+# define SHELL_ESC_CHARS ((char_u *)" \t\n*?[{`$\\%#'\"|!<>();&")
+# define BUFFER_ESC_CHARS ((char_u *)" \t\n*?[`$\\%#'\"|!<")
 #endif
 
 // length of a buffer to store a number in ASCII (64 bits binary + NUL)

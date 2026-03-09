@@ -12,9 +12,6 @@
 #endif
 
 #ifdef FEAT_GUI_GTK
-# ifdef VMS
-#  include "gui_gtk_vms.h"
-# endif
 # include <X11/Intrinsic.h>
 # pragma GCC diagnostic push
 # pragma GCC diagnostic ignored "-Wstrict-prototypes"

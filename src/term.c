@@ -1401,10 +1401,6 @@ termgui_mch_get_rgb(guicolor_T color)
 # define DEFAULT_TERM	(char_u *)"ansi"
 #endif
 
-#ifdef VMS
-# define DEFAULT_TERM	(char_u *)"vt320"
-#endif
-
 #ifdef __HAIKU__
 # undef DEFAULT_TERM
 # define DEFAULT_TERM	(char_u *)"xterm"
@@ -1529,10 +1525,6 @@ find_builtin_term(char_u *term)
 	if (STRCMP(name, "iris-ansi") == 0 && vim_is_iris(term))
 	    return builtin_terminals[i].bitc_table;
 	if (STRCMP(name, "xterm") == 0 && vim_is_xterm(term))
-	    return builtin_terminals[i].bitc_table;
-#endif
-#ifdef VMS
-	if (STRCMP(name, "vt320") == 0 && vim_is_vt300(term))
 	    return builtin_terminals[i].bitc_table;
 #endif
 	if (STRCMP(term, name) == 0)

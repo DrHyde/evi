@@ -2494,9 +2494,6 @@ qf_get_fnum(qf_list_T *qfl, char_u *directory, char_u *fname)
     if (fname == NULL || *fname == NUL)		// no file name
 	return 0;
 
-#ifdef VMS
-    vms_remove_version(fname);
-#endif
 #ifdef BACKSLASH_IN_FILENAME
     if (directory != NULL)
 	slash_adjust(directory);

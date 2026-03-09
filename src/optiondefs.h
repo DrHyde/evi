@@ -432,13 +432,8 @@ static struct vimoption options[] =
     {"backupext",   "bex",  P_STRING|P_VI_DEF|P_NFNAME,
 			    (char_u *)&p_bex, PV_NONE,
 			    did_set_backupext_or_patchmode, NULL,
-			    {
-#ifdef VMS
-			    (char_u *)"_",
-#else
-			    (char_u *)"~",
-#endif
-					    (char_u *)0L} SCTX_INIT},
+			    {(char_u *)"~", (char_u *)0L}
+			    SCTX_INIT},
     {"backupskip",  "bsk",  P_STRING|P_VI_DEF|P_ONECOMMA|P_NODUP,
 			    (char_u *)&p_bsk, PV_NONE, NULL, NULL,
 			    {(char_u *)"", (char_u *)0L}
@@ -1628,11 +1623,7 @@ static struct vimoption options[] =
     {"makeprg",	    "mp",   P_STRING|P_EXPAND|P_VI_DEF|P_SECURE,
 #ifdef FEAT_QUICKFIX
 			    (char_u *)&p_mp, PV_MP, NULL, NULL,
-# ifdef VMS
-			    {(char_u *)"MMS", (char_u *)0L}
-# else
 			    {(char_u *)"make", (char_u *)0L}
-# endif
 #else
 			    (char_u *)NULL, PV_NONE, NULL, NULL,
 			    {(char_u *)NULL, (char_u *)0L}
@@ -2194,15 +2185,11 @@ static struct vimoption options[] =
     {"shell",	    "sh",   P_STRING|P_EXPAND|P_VI_DEF|P_SECURE,
 			    (char_u *)&p_sh, PV_NONE, NULL, NULL,
 			    {
-#ifdef VMS
-			    (char_u *)"-",
-#else
-# if defined(MSWIN)
+#if defined(MSWIN)
 			    (char_u *)"",	// set in set_init_1()
-# else
+#else
 			    (char_u *)"sh",
-# endif
-#endif // VMS
+#endif
 				(char_u *)0L} SCTX_INIT},
     {"shellcmdflag","shcf", P_STRING|P_VI_DEF|P_SECURE,
 			    (char_u *)&p_shcf, PV_NONE, NULL, NULL,
@@ -2476,11 +2463,7 @@ static struct vimoption options[] =
 			    {(char_u *)8L, (char_u *)0L} SCTX_INIT},
     {"tagbsearch",  "tbs",   P_BOOL|P_VI_DEF,
 			    (char_u *)&p_tbs, PV_NONE, NULL, NULL,
-#ifdef VMS	// binary searching doesn't appear to work on VMS
-			    {(char_u *)0L, (char_u *)0L}
-#else
 			    {(char_u *)TRUE, (char_u *)0L}
-#endif
 			    SCTX_INIT},
     {"tagcase",	    "tc",   P_STRING|P_VIM,
 			    (char_u *)&p_tc, PV_TC, did_set_tagcase, expand_set_tagcase,

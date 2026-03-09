@@ -158,20 +158,11 @@ char osver[] = "";
 # define BIN_ASSIGN(fp, yes) ((yes) ? (void) setmode(fileno(fp), O_BINARY) : (void) (fp))
 # define PATH_SEP '/'
 #else
-# ifdef VMS
-#  define BIN_READ(dummy)  "r"
-#  define BIN_WRITE(dummy) "w"
-#  define BIN_CREAT(dummy) O_CREAT
-#  define BIN_ASSIGN(fp, dummy) fp
-#  define PATH_SEP ']'
-#  define FILE_SEP '.'
-# else
-#  define BIN_READ(dummy)  "r"
-#  define BIN_WRITE(dummy) "w"
-#  define BIN_CREAT(dummy) O_CREAT
-#  define BIN_ASSIGN(fp, dummy) fp
-#  define PATH_SEP '/'
-# endif
+# define BIN_READ(dummy)  "r"
+# define BIN_WRITE(dummy) "w"
+# define BIN_CREAT(dummy) O_CREAT
+# define BIN_ASSIGN(fp, dummy) fp
+# define PATH_SEP '/'
 #endif
 
 /* open has only to arguments on the Mac */

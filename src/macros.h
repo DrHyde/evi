@@ -138,34 +138,25 @@
  * On VMS file names are different and require a translation.
  * On the Mac open() has only two arguments.
  */
-#ifdef VMS
-# define mch_access(n, p)	access(vms_fixfilename(n), (p))
-				// see mch_open() comment
-# define mch_fopen(n, p)	fopen(vms_fixfilename(n), (p))
-# define mch_fstat(n, p)	fstat((n), (p))
-# undef HAVE_LSTAT		// VMS does not have lstat()
-# define mch_stat(n, p)		stat(vms_fixfilename(n), (p))
-#else
-# ifndef MSWIN
-#   define mch_access(n, p)	access((n), (p))
-# endif
+#if !defined(MSWIN) && !defined(PROTO)
+#  define mch_access(n, p)	access((n), (p))
+#endif
 
 // Use 64-bit fstat function on MS-Windows.
 // NOTE: This condition is the same as for the stat_T type.
-# ifdef MSWIN
-#  define mch_fstat(n, p)	_fstat64((n), (p))
-# else
-#  define mch_fstat(n, p)	fstat((n), (p))
-# endif
+#ifdef MSWIN
+# define mch_fstat(n, p)	_fstat64((n), (p))
+#else
+# define mch_fstat(n, p)	fstat((n), (p))
+#endif
 
-# ifdef MSWIN	// has its own mch_stat() function
+#ifdef MSWIN	// has its own mch_stat() function
+# define mch_stat(n, p)	vim_stat((n), (p))
+#else
+# ifdef STAT_IGNORES_SLASH
 #  define mch_stat(n, p)	vim_stat((n), (p))
 # else
-#  ifdef STAT_IGNORES_SLASH
-#   define mch_stat(n, p)	vim_stat((n), (p))
-#  else
-#   define mch_stat(n, p)	stat((n), (p))
-#  endif
+#  define mch_stat(n, p)	stat((n), (p))
 # endif
 #endif
 
@@ -173,15 +164,6 @@
 # define mch_lstat(n, p)	lstat((n), (p))
 #else
 # define mch_lstat(n, p)	mch_stat((n), (p))
-#endif
-
-#ifdef VMS
-/*
- * It is possible to force some record format with:
- * #  define mch_open(n, m, p) open(vms_fixfilename(n), (m), (p)), "rat=cr", "rfm=stmlf", "mrs=0")
- * but it is not recommended, because it can destroy indexes etc.
- */
-# define mch_open(n, m, p)	open(vms_fixfilename(n), (m), (p))
 #endif
 
 // mch_open_rw(): invoke mch_open() with third argument for user R/W.
@@ -285,11 +267,7 @@
 #  endif
 #  if !defined(INFINITY)
 #   if defined(DBL_MAX)
-#    ifdef VMS
-#     define INFINITY DBL_MAX
-#    else
-#     define INFINITY (DBL_MAX+DBL_MAX)
-#    endif
+#    define INFINITY (DBL_MAX+DBL_MAX)
 #   else
 #    define INFINITY (1.0 / 0.0)
 #   endif

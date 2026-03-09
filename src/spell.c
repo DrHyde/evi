@@ -1643,24 +1643,14 @@ spell_load_lang(char_u *lang)
 	 * Find the first spell file for "lang" in 'runtimepath' and load it.
 	 */
 	vim_snprintf((char *)fname_enc, sizeof(fname_enc) - 5,
-#ifdef VMS
-					"spell/%s_%s.spl",
-#else
-					"spell/%s.%s.spl",
-#endif
-							   lang, spell_enc());
+					"spell/%s.%s.spl", lang, spell_enc());
 	r = do_in_runtimepath(fname_enc, 0, spell_load_cb, &sl);
 
 	if (r == FAIL && *sl.sl_lang != NUL)
 	{
 	    // Try loading the ASCII version.
 	    vim_snprintf((char *)fname_enc, sizeof(fname_enc) - 5,
-#ifdef VMS
-						  "spell/%s_ascii.spl",
-#else
-						  "spell/%s.ascii.spl",
-#endif
-									lang);
+						  "spell/%s.ascii.spl", lang);
 	    r = do_in_runtimepath(fname_enc, 0, spell_load_cb, &sl);
 
 	    if (r == FAIL && *sl.sl_lang != NUL && round == 1
@@ -1675,11 +1665,7 @@ spell_load_lang(char_u *lang)
     if (r == FAIL)
     {
 	smsg(
-#ifdef VMS
-	_("Warning: Cannot find word list \"%s_%s.spl\" or \"%s_ascii.spl\""),
-#else
 	_("Warning: Cannot find word list \"%s.%s.spl\" or \"%s.ascii.spl\""),
-#endif
 						     lang, spell_enc(), lang);
     }
     else if (sl.sl_slang != NULL)
