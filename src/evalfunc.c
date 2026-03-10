@@ -6965,7 +6965,6 @@ f_id(typval_T *argvars, typval_T *rettv)
     switch (argvars[0].v_type)
     {
 	case VAR_LIST:
-	case VAR_TUPLE:
 	case VAR_DICT:
 	case VAR_OBJECT:
 	case VAR_JOB:

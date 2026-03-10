@@ -2561,6 +2561,7 @@ simplify_filename(char_u *filename)
 #ifndef AMIGA	    // Amiga doesn't have "..", it uses "/"
     int		components = 0;
     char_u	*p, *tail, *start;
+    char_u	*p_end;
     int		stripping_disabled = FALSE;
     int		relative = TRUE;
 
@@ -2578,6 +2579,7 @@ simplify_filename(char_u *filename)
 	while (vim_ispathsep(*p));
     }
     start = p;	    // remember start after "c:/" or "/" or "///"
+    p_end = p + STRLEN(p);
 #ifdef UNIX
     // Posix says that "//path" is unchanged but "///path" is "/path".
     if (start > filename + 2)

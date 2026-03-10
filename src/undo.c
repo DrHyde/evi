@@ -819,8 +819,10 @@ u_get_undo_file_name(char_u *buf_ffname, int reading)
     char_u	*undo_file_name = NULL;
     int		dir_len;
     char_u	*p;
+    size_t	plen;
     stat_T	st;
     char_u	*ffname = buf_ffname;
+    size_t	ffnamelen;
 #ifdef HAVE_READLINK
     char_u	fname_buf[MAXPATHL];
 #endif
