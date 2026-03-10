@@ -1,9 +1,9 @@
-README.txt for version 9.1 of Vim: Vi IMproved.
+README.txt for version 10.0 of EVi.
 
 
 WHAT IS EVI?
 
-EVi is a hard fork from Vim v9.1.2073 (Jan 2026) to build further upon the
+EVi is a hard fork from Vim v9.1.0 (Jan 2024) to build further upon the
 foundations of Vim, while avoiding AI taint.
 
 Vim, and by extension EVi, is a greatly improved version of the good old UNIX

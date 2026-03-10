@@ -5,7 +5,7 @@ If you find a bug or want to discuss the best way to add a new feature, please
 
 ## What is EVi?
 
-EVi is a hard fork from Vim v9.1.2073 (Jan 2026) to build further upon the
+EVi is a hard fork from Vim v9.1.0 (Jan 2024) to build further upon the
 foundations of Vim, while avoiding AI taint.
 
 Vim, and by extension EVi, is a greatly improved version of the good old UNIX
