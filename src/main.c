@@ -1918,9 +1918,11 @@ parse_command_name(mparm_T *parmp)
 	++initstr;
     }
 
+
     // Use evim mode for "evim" and "egvim", not for "editor".
-    if (STRNICMP(initstr, "evim", 4) == 0
-	|| STRNICMP(initstr, "egvim", 5) == 0)
+    if (TOLOWER_ASC(initstr[0]) == 'e'
+	&& (TOLOWER_ASC(initstr[1]) == 'e'
+	|| TOLOWER_ASC(initstr[1]) == 'g'))
     {
 #ifdef FEAT_GUI
 	gui.starting = TRUE;
@@ -1953,7 +1955,7 @@ parse_command_name(mparm_T *parmp)
 	p_uc = 10000;			// don't update very often
 	initstr += 4;
     }
-    else if (STRNICMP(initstr, "vim", 3) == 0)
+    else if (STRNICMP(initstr, "evi", 3) == 0)
 	initstr += 3;
 
     // Catch "[r][g]vimdiff" and "[r][g]viewdiff".
@@ -1962,7 +1964,7 @@ parse_command_name(mparm_T *parmp)
 #ifdef FEAT_DIFF
 	parmp->diff_mode = TRUE;
 #else
-	mch_errmsg(_("This Vim was not compiled with the diff feature."));
+	mch_errmsg(_("This EVi was not compiled with the diff feature."));
 	mch_errmsg("\n");
 	mch_exit(2);
 #endif
