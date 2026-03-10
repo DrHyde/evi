@@ -146,6 +146,23 @@ gui_start(char_u *arg UNUSED)
 	    emsg(msg);
 #endif
     }
+#ifdef HAVE_CLIPMETHOD
+    else
+	// Reset clipmethod to CLIPMETHOD_NONE
+	choose_clipmethod();
+#endif
+
+#if defined(FEAT_SOCKETSERVER) && defined(FEAT_GUI_GTK)
+    // Install socket server listening socket if we are running it
+    if (socket_server_valid())
+	gui_gtk_init_socket_server();
+#endif
+
+#ifdef FEAT_GUI_MSWIN
+    // Enable fullscreen mode
+    if (vim_strchr(p_go, GO_FULLSCREEN) != NULL)
+       gui_mch_set_fullscreen(TRUE);
+#endif
 
     vim_free(old_term);
 
