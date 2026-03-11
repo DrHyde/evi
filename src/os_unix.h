@@ -224,10 +224,10 @@ typedef void (*sighandler_T) SIGPROTOARG;
 
 #ifdef FEAT_VIMINFO
 # ifndef VIMINFO_FILE
-#  define VIMINFO_FILE "$HOME/.viminfo"
+#  define VIMINFO_FILE "$HOME/.eviinfo"
 # endif
 # if !defined(VIMINFO_FILE2) && defined(VMS)
-#  define VIMINFO_FILE2 "sys$login:_viminfo"
+#  define VIMINFO_FILE2 "sys$login:_eviinfo"
 # endif
 #endif
 
@@ -269,21 +269,21 @@ typedef void (*sighandler_T) SIGPROTOARG;
 
 # ifdef RUNTIME_GLOBAL
 #  ifdef RUNTIME_GLOBAL_AFTER
-#   define DFLT_RUNTIMEPATH	"~/.vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",~/.vim/after"
-#   define XDG_RUNTIMEPATH	"$XDG_CONFIG_HOME/vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",$XDG_CONFIG_HOME/vim/after"
-#   define XDG_RUNTIMEPATH_FB	"~/.config/vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",~/.config/vim/after"
+#   define DFLT_RUNTIMEPATH	"~/.evi," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",~/.evi/after"
+#   define XDG_RUNTIMEPATH	"$XDG_CONFIG_HOME/evi," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",$XDG_CONFIG_HOME/evi/after"
+#   define XDG_RUNTIMEPATH_FB	"~/.config/evi," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER ",~/.config/evi/after"
 #   define CLEAN_RUNTIMEPATH	RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL_AFTER
 #  else
-#   define DFLT_RUNTIMEPATH	"~/.vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,~/.vim/after"
-#   define XDG_RUNTIMEPATH	"$XDG_CONFIG_HOME/vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,$XDG_CONFIG_HOME/vim/after"
-#   define XDG_RUNTIMEPATH_FB	"~/.config/vim," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,~/.config/vim/after"
+#   define DFLT_RUNTIMEPATH	"~/.evi," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,~/.evi/after"
+#   define XDG_RUNTIMEPATH	"$XDG_CONFIG_HOME/evi," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,$XDG_CONFIG_HOME/evi/after"
+#   define XDG_RUNTIMEPATH_FB	"~/.config/evi," RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after,~/.config/evi/after"
 #   define CLEAN_RUNTIMEPATH	RUNTIME_GLOBAL ",$VIMRUNTIME," RUNTIME_GLOBAL "/after"
 #  endif
 # else
-#  define DFLT_RUNTIMEPATH	"~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after"
-#  define XDG_RUNTIMEPATH	"$XDG_CONFIG_HOME/vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$XDG_CONFIG_HOME/vim/after"
-#  define XDG_RUNTIMEPATH_FB	"~/.config/vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.config/vim/after"
-#  define CLEAN_RUNTIMEPATH	"$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after"
+#  define DFLT_RUNTIMEPATH	"~/.evi,$VIM/evifiles,$VIMRUNTIME,$VIM/evifiles/after,~/.evi/after"
+#  define XDG_RUNTIMEPATH	"$XDG_CONFIG_HOME/evi,$VIM/evifiles,$VIMRUNTIME,$VIM/evifiles/after,$XDG_CONFIG_HOME/evi/after"
+#  define XDG_RUNTIMEPATH_FB	"~/.config/evi,$VIM/evifiles,$VIMRUNTIME,$VIM/evifiles/after,~/.config/evi/after"
+#  define CLEAN_RUNTIMEPATH	"$VIM/evifiles,$VIMRUNTIME,$VIM/evifiles/after"
 # endif
 
 #endif
