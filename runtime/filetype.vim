@@ -2869,7 +2869,7 @@ au BufNewFile,BufRead *.usda,*.usd		setf usd
 au BufNewFile,BufRead *.vhdl_[0-9]*		call s:StarSetf('vhdl')
 
 " Vim script
-au BufNewFile,BufRead *vimrc*			call s:StarSetf('vim')
+au BufNewFile,BufRead *vimrc*,*evirc*		call s:StarSetf('vim')
 
 " Subversion commit file
 au BufNewFile,BufRead svn-commit*.tmp		setf svn
