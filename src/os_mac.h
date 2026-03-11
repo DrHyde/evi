@@ -99,10 +99,10 @@
  */
 
 #ifndef SYS_VIMRC_FILE
-# define SYS_VIMRC_FILE "$VIM/vimrc"
+# define SYS_VIMRC_FILE "$VIM/evirc"
 #endif
 #ifndef SYS_GVIMRC_FILE
-# define SYS_GVIMRC_FILE "$VIM/gvimrc"
+# define SYS_GVIMRC_FILE "$VIM/gevirc"
 #endif
 #ifndef SYS_MENU_FILE
 # define SYS_MENU_FILE	"$VIMRUNTIME/menu.vim"
@@ -119,14 +119,14 @@
 
 #ifdef FEAT_GUI
 # ifndef USR_GVIMRC_FILE
-#  define USR_GVIMRC_FILE "~/.gvimrc"
+#  define USR_GVIMRC_FILE "~/.gevirc"
 # endif
 # ifndef GVIMRC_FILE
-#  define GVIMRC_FILE	"_gvimrc"
+#  define GVIMRC_FILE	"_gevirc"
 # endif
 #endif
 #ifndef USR_VIMRC_FILE
-# define USR_VIMRC_FILE	"~/.vimrc"
+# define USR_VIMRC_FILE	"~/.evirc"
 #endif
 
 #ifndef USR_EXRC_FILE
@@ -134,7 +134,7 @@
 #endif
 
 #ifndef VIMRC_FILE
-# define VIMRC_FILE	"_vimrc"
+# define VIMRC_FILE	"_evirc"
 #endif
 
 #ifndef EXRC_FILE
@@ -151,7 +151,7 @@
 
 #ifdef FEAT_VIMINFO
 # ifndef VIMINFO_FILE
-#  define VIMINFO_FILE	"~/.viminfo"
+#  define VIMINFO_FILE	"~/.eviinfo"
 # endif
 #endif // FEAT_VIMINFO
 
@@ -164,16 +164,16 @@
 #endif
 
 #ifndef DFLT_VDIR
-# define DFLT_VDIR	"$VIM/vimfiles/view"	// default for 'viewdir'
+# define DFLT_VDIR	"$VIM/evifiles/view"	// default for 'viewdir'
 #endif
 
 #define DFLT_ERRORFILE		"errors.err"
 
 #ifndef DFLT_RUNTIMEPATH
-# define DFLT_RUNTIMEPATH	"~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after"
+# define DFLT_RUNTIMEPATH	"~/.evi,$VIM/evifiles,$VIMRUNTIME,$VIM/evifiles/after,~/.evi/after"
 #endif
 #ifndef CLEAN_RUNTIMEPATH
-# define CLEAN_RUNTIMEPATH	"$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after"
+# define CLEAN_RUNTIMEPATH	"$VIM/evifiles,$VIMRUNTIME,$VIM/evifiles/after"
 #endif
 
 /*

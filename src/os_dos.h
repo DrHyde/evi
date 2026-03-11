@@ -14,16 +14,16 @@
  */
 
 #ifndef SYS_VIMRC_FILE
-# define SYS_VIMRC_FILE		"$VIM\\vimrc"
+# define SYS_VIMRC_FILE		"$VIM\\evirc"
 #endif
 #ifndef USR_VIMRC_FILE
-# define USR_VIMRC_FILE		"$HOME\\_vimrc"
+# define USR_VIMRC_FILE		"$HOME\\_evirc"
 #endif
 #ifndef USR_VIMRC_FILE2
-# define USR_VIMRC_FILE2	"$HOME\\vimfiles\\vimrc"
+# define USR_VIMRC_FILE2	"$HOME\\evifiles\\evirc"
 #endif
 #ifndef USR_VIMRC_FILE3
-# define USR_VIMRC_FILE3	"$VIM\\_vimrc"
+# define USR_VIMRC_FILE3	"$VIM\\_evirc"
 #endif
 #ifndef VIM_DEFAULTS_FILE
 # define VIM_DEFAULTS_FILE	"$VIMRUNTIME\\defaults.vim"
@@ -41,16 +41,16 @@
 
 #ifdef FEAT_GUI
 # ifndef SYS_GVIMRC_FILE
-#  define SYS_GVIMRC_FILE	"$VIM\\gvimrc"
+#  define SYS_GVIMRC_FILE	"$VIM\\gevirc"
 # endif
 # ifndef USR_GVIMRC_FILE
-#  define USR_GVIMRC_FILE	"$HOME\\_gvimrc"
+#  define USR_GVIMRC_FILE	"$HOME\\_gevirc"
 # endif
 # ifndef USR_GVIMRC_FILE2
-#  define USR_GVIMRC_FILE2	"$HOME\\vimfiles\\gvimrc"
+#  define USR_GVIMRC_FILE2	"$HOME\\evifiles\\gevirc"
 # endif
 # ifndef USR_GVIMRC_FILE3
-#  define USR_GVIMRC_FILE3	"$VIM\\_gvimrc"
+#  define USR_GVIMRC_FILE3	"$VIM\\_gevirc"
 # endif
 # ifndef SYS_MENU_FILE
 #  define SYS_MENU_FILE		"$VIMRUNTIME\\menu.vim"
@@ -63,15 +63,15 @@
 
 #ifdef FEAT_VIMINFO
 # ifndef VIMINFO_FILE
-#  define VIMINFO_FILE		"$HOME\\_viminfo"
+#  define VIMINFO_FILE		"$HOME\\_eviinfo"
 # endif
 # ifndef VIMINFO_FILE2
-#  define VIMINFO_FILE2		"$VIM\\_viminfo"
+#  define VIMINFO_FILE2		"$VIM\\_eviinfo"
 # endif
 #endif
 
 #ifndef VIMRC_FILE
-# define VIMRC_FILE	"_vimrc"
+# define VIMRC_FILE	"_evirc"
 #endif
 
 #ifndef EXRC_FILE
@@ -80,7 +80,7 @@
 
 #ifdef FEAT_GUI
 # ifndef GVIMRC_FILE
-#  define GVIMRC_FILE	"_gvimrc"
+#  define GVIMRC_FILE	"_gevirc"
 # endif
 #endif
 
@@ -97,7 +97,7 @@
 #endif
 
 #ifndef DFLT_VDIR
-# define DFLT_VDIR	"$HOME/vimfiles/view"	// default for 'viewdir'
+# define DFLT_VDIR	"$HOME/evifiles/view"	// default for 'viewdir'
 #endif
 
 #ifndef DFLT_DIR
@@ -105,8 +105,8 @@
 #endif
 
 #define DFLT_ERRORFILE		"errors.err"
-#define DFLT_RUNTIMEPATH	"$HOME/vimfiles,$VIM/vimfiles,$VIMRUNTIME,$HOME/vimfiles/after,$VIM/vimfiles/after"
-#define CLEAN_RUNTIMEPATH	"$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after"
+#define DFLT_RUNTIMEPATH	"$HOME/evifiles,$VIM/evifiles,$VIMRUNTIME,$HOME/evifiles/after,$VIM/evifiles/after"
+#define CLEAN_RUNTIMEPATH	"$VIM/evifiles,$VIMRUNTIME,$VIM/evifiles/after"
 
 #define CASE_INSENSITIVE_FILENAME   // ignore case when comparing file names
 #define SPACE_IN_FILENAME
