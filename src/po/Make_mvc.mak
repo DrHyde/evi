@@ -492,8 +492,8 @@ PO_INPUTLIST = \
 	..\globals.h \
 	..\if_py_both.h \
 	..\vim.h \
-	gvim.desktop.in \
-	vim.desktop.in
+	gevi.desktop.in \
+	evi.desktop.in
 
 files: $(PO_INPUTLIST)
 	$(LS) $(LSFLAGS) $(PO_INPUTLIST) > .\files

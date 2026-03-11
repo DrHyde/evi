@@ -1,4 +1,4 @@
-# Makefile for the Vim message translations.
+# Makefile for the EVi message translations.
 
 # Include stuff found by configure.
 include ../auto/config.mk
@@ -9,9 +9,9 @@ include Make_all.mak
 # Note: ja.sjis, *.cp1250 and zh_CN.cp936 are only for MS-Windows, they are
 # not installed on Unix
 
-PACKAGE = vim
+PACKAGE = evi
 SHELL = /bin/sh
-VIM = ../vim
+EVI = ../evi
 
 # MacOS sed is locale aware, set $LANG to avoid problems
 SED = LANG=C sed
@@ -32,7 +32,7 @@ MSGMERGE = OLD_PO_FILE_INPUT=yes OLD_PO_FILE_OUTPUT=yes msgmerge
 	$(MSGFMTCMD) -o $@ $<
 
 .po.ck:
-	$(VIM) -u NONE --noplugins -e -s -X --cmd "set enc=utf-8" -S check.vim \
+	$(EVI) -u NONE --noplugins -e -s -X --cmd "set enc=utf-8" -S check.vim \
 		-c "if error == 0 | q | else | num 2 | cq | endif" $<
 	touch $@
 
@@ -236,7 +236,7 @@ prefixcheck:
 
 clean: checkclean
 	rm -f core core.* *.old.po *.mo *.pot sjiscorr
-	rm -f LINGUAS vim.desktop gvim.desktop tmp_*desktop
+	rm -f LINGUAS evi.desktop gevi.desktop tmp_*desktop
 #	rm -f big5corr
 
 distclean: clean
@@ -252,36 +252,36 @@ PO_INPUTLIST = \
 	../globals.h \
 	../if_py_both.h \
 	../vim.h \
-	gvim.desktop.in \
-	vim.desktop.in
+	gevi.desktop.in \
+	evi.desktop.in
 
 $(PACKAGE).pot: $(PO_INPUTLIST) $(PO_VIM_INPUTLIST)
 	# Convert the Vim scripts to (what looks like) Javascript
-	$(VIM) -u NONE --not-a-term -S tojavascript.vim $(PACKAGE).pot $(PO_VIM_INPUTLIST)
+	$(EVI) -u NONE --not-a-term -S tojavascript.vim $(PACKAGE).pot $(PO_VIM_INPUTLIST)
 	# create vim.pot
 	$(XGETTEXT) --default-domain=$(PACKAGE) --add-comments \
 		$(XGETTEXT_KEYWORDS) $(PO_INPUTLIST) $(PO_VIM_JSLIST)
 	mv -f $(PACKAGE).po $(PACKAGE).pot
-	# Fix Vim scripts names, so that "gf" works
-	$(VIM) -u NONE --not-a-term -S fixfilenames.vim $(PACKAGE).pot $(PO_VIM_INPUTLIST)
+	# Fix EVi scripts names, so that "gf" works
+	$(EVI) -u NONE --not-a-term -S fixfilenames.vim $(PACKAGE).pot $(PO_VIM_INPUTLIST)
 	# Delete the temporary files
 	rm *.js
 
-vim.desktop: vim.desktop.in $(POFILES)
+evi.desktop: evi.desktop.in $(POFILES)
 	echo $(LANGUAGES) | tr " " "\n" |$(SED) -e '/\./d' | sort > LINGUAS
-	$(MSGFMT) --desktop -d . --template vim.desktop.in -o tmp_vim.desktop
+	$(MSGFMT) --desktop -d . --template evi.desktop.in -o tmp_evi.desktop
 	rm -f LINGUAS
-	if command -v desktop-file-validate; then desktop-file-validate tmp_vim.desktop; fi
-	mv tmp_vim.desktop vim.desktop
+	if command -v desktop-file-validate; then desktop-file-validate tmp_evi.desktop; fi
+	mv tmp_evi.desktop evi.desktop
 
-# The dependency on vim.desktop is only to avoid the two targets are build at
+# The dependency on evi.desktop is only to avoid the two targets are build at
 # the same time, which causes a race for the LINGUAS file.
-gvim.desktop: gvim.desktop.in $(POFILES) vim.desktop
+gevi.desktop: gevi.desktop.in $(POFILES) evi.desktop
 	echo $(LANGUAGES) | tr " " "\n" |$(SED) -e '/\./d' | sort > LINGUAS
-	$(MSGFMT) --desktop -d . --template gvim.desktop.in -o tmp_gvim.desktop
+	$(MSGFMT) --desktop -d . --template gevi.desktop.in -o tmp_gevi.desktop
 	rm -f LINGUAS
-	if command -v desktop-file-validate; then desktop-file-validate tmp_gvim.desktop; fi
-	mv tmp_gvim.desktop gvim.desktop
+	if command -v desktop-file-validate; then desktop-file-validate tmp_gevi.desktop; fi
+	mv tmp_gevi.desktop gevi.desktop
 
 # When updating ja.sjis.po there are a bunch of errors and a crash.
 # The files that are converted to a different encoding clearly state "DO NOT EDIT".

@@ -60,8 +60,8 @@ PO_INPUTLIST = \
 	../globals.h \
 	../if_py_both.h \
 	../vim.h \
-	gvim.desktop.in \
-	vim.desktop.in
+	gevi.desktop.in \
+	evi.desktop.in
 
 first_time: $(PO_INPUTLIST) $(PO_VIM_INPUTLIST)
 	$(VIM) -u NONE --not-a-term -S tojavascript.vim $(LANGUAGE).pot $(PO_VIM_INPUTLIST)
