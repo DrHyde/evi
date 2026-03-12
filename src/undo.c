@@ -837,6 +837,7 @@ u_get_undo_file_name(char_u *buf_ffname, int reading)
 	ffname = fname_buf;
 #endif
 
+	ffnamelen = STRLEN(ffname);
     // Loop over 'undodir'.  When reading find the first file that exists.
     // When not reading use the first directory that exists or ".".
     dirp = p_udir;
