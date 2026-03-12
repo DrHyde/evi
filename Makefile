@@ -51,7 +51,7 @@ all install uninstall tools config configure reconfig proto depend lint tags typ
 	fi
 
 # Executable used for running the indent tests.
-VIM_FOR_INDENTTEST = ../../src/vim
+VIM_FOR_INDENTTEST = ../../src/evi
 
 indenttest:
 	cd runtime/indent && \
@@ -59,7 +59,7 @@ indenttest:
 		$(MAKE) test VIM="$(VIM_FOR_INDENTTEST)"
 
 # Executable used for running the syntax tests.
-VIM_FOR_SYNTAXTEST = ../../src/vim
+VIM_FOR_SYNTAXTEST = ../../src/evi
 
 syntaxtest:
 	cd runtime/syntax && \
@@ -250,7 +250,7 @@ VDOT	= $(MAJOR).$(MINOR)
 VIMRTDIR = evi$(VERSION)
 
 # Vim used for conversion from "unix" to "dos"
-VIM	= vim
+VIM	= evi
 
 # How to include Filelist depends on the version of "make" you have.
 # If the current choice doesn't work, try the other one.
@@ -278,7 +278,7 @@ dist/comment:
 
 COMMENT_RT = comment/$(VERSION)-rt
 COMMENT_W32 = comment/$(VERSION)-bin-w32
-COMMENT_GVIM = comment/$(VERSION)-bin-gvim
+COMMENT_GVIM = comment/$(VERSION)-bin-gevi
 COMMENT_OLE = comment/$(VERSION)-bin-ole
 COMMENT_SRC = comment/$(VERSION)-src
 COMMENT_HTML = comment/$(VERSION)-html

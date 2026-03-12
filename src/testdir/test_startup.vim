@@ -749,7 +749,7 @@ func Test_read_stdin()
 endfunc
 
 func Test_progpath()
-  " Tests normally run with "./vim" or "../vim", these must have been expanded
+  " Tests normally run with "./evi" or "../evi", these must have been expanded
   " to a full path.
   if has('unix')
     call assert_equal('/', v:progpath[0])
@@ -758,8 +758,8 @@ func Test_progpath()
     call assert_match('[/\\]', v:progpath[2])
   endif
 
-  " Only expect "vim" to appear in v:progname.
-  call assert_match('vim\c', v:progname)
+  " Only expect "evi" to appear in v:progname.
+  call assert_match('evi\c', v:progname)
 endfunc
 
 func Test_silent_ex_mode()
@@ -840,12 +840,12 @@ func Test_start_in_minimal_window()
 endfunc
 
 func Test_v_argv()
-  " Can't catch the output of gvim.
+  " Can't catch the output of gevi.
   CheckNotGui
 
   let out = system(GetVimCommand() . ' -es -V1 -X arg1 --cmd "echo v:argv" --cmd q')
   let list = out->split("', '")
-  call assert_match('vim', list[0])
+  call assert_match('evi', list[0])
   let idx = index(list, 'arg1')
   call assert_true(idx > 2)
   call assert_equal(['arg1', '--cmd', 'echo v:argv', '--cmd', 'q'']'], list[idx:])

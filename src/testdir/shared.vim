@@ -240,17 +240,17 @@ func s:feedkeys(timer)
   call feedkeys('x', 'nt')
 endfunc
 
-" Get the name of the Vim executable that we expect has been build in the src
+" Get the name of the EVi executable that we expect has been build in the src
 " directory.
 func s:GetJustBuildVimExe()
   if has("win32")
-    if !filereadable('..\vim.exe') && filereadable('..\vimd.exe')
+    if !filereadable('..\evi.exe') && filereadable('..\evid.exe')
       " looks like the debug executable was intentionally build, so use it
-      return '..\vimd.exe'
+      return '..\evid.exe'
     endif
-    return '..\vim.exe'
+    return '..\evi.exe'
   endif
-  return '../vim'
+  return '../evi'
 endfunc
 
 " Get $VIMPROG to run the Vim executable.
@@ -260,7 +260,7 @@ func GetVimProg()
   if filereadable('vimcmd')
     return readfile('vimcmd')[0]
   endif
-  echo 'Cannot read the "vimcmd" file, falling back to ../vim.'
+  echo 'Cannot read the "vimcmd" file, falling back to ../evi.'
 
   " Probably the script was sourced instead of running "make".
   " We assume Vim was just build in the src directory then.
@@ -275,7 +275,7 @@ func GetVimCommand(...)
   if filereadable('vimcmd')
     let lines = readfile('vimcmd')
   else
-    echo 'Cannot read the "vimcmd" file, falling back to ../vim.'
+    echo 'Cannot read the "vimcmd" file, falling back to ../evi.'
     let lines = [s:GetJustBuildVimExe()]
   endif
 
