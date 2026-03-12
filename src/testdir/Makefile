@@ -3,7 +3,7 @@
 #
 
 # Use console or GUI.
-VIMPROG = ../vim
+VIMPROG = ../evi
 XXDPROG = ../xxd/xxd
 # VIMPROG = ../gvim
 
