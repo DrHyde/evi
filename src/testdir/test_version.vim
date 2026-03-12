@@ -9,7 +9,7 @@ func Test_version()
   let v2 = execute('version')
   call assert_equal(v1, v2)
 
-  call assert_match("^\n\nVIM - Vi IMproved .*", v1)
+  call assert_match("^\n\nEVi - Vi for Programmers, not AI users. .*", v1)
 endfunc
 
 func Test_version_redirect()

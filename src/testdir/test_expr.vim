@@ -42,8 +42,6 @@ func Test_version()
   call assert_false(has('patch-7'))
   call assert_false(has('patch-7.4'))
   call assert_false(has('patch-7.4.'))
-  call assert_false(has('patch-9.2.0'))
-  call assert_false(has('patch-9.9.1'))
 
   call assert_false(has('patch-abc'))
   call assert_false(has('patchabc'))

@@ -111,7 +111,7 @@ func Test_help_arg()
   if RunVim([], [], '--help >Xtestout')
     let lines = readfile('Xtestout')
     call assert_true(len(lines) > 20)
-    call assert_match('Vi IMproved', lines[0])
+    call assert_match('EVi - Vi for Programmers,', lines[0])
 
     " check if  couple of lines are there
     let found = []
