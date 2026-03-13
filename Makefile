@@ -285,25 +285,25 @@ COMMENT_HTML = comment/$(VERSION)-html
 COMMENT_FARSI = comment/$(VERSION)-farsi
 
 dist/$(COMMENT_RT): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) runtime files for MS-DOS and MS-Windows" > dist/$(COMMENT_RT)
+	echo "EVi - Vi for Programmers, not AI users. - v$(VDOT) runtime files for MS-DOS and MS-Windows" > dist/$(COMMENT_RT)
 
 dist/$(COMMENT_W32): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) binaries for MS-Windows NT/95" > dist/$(COMMENT_W32)
+	echo "EVi - Vi for Programmers, not AI users. - v$(VDOT) binaries for MS-Windows NT/95" > dist/$(COMMENT_W32)
 
 dist/$(COMMENT_GVIM): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) GUI binaries for MS-Windows NT/95" > dist/$(COMMENT_GVIM)
+	echo "EVi - Vi for Programmers, not AI users. - v$(VDOT) GUI binaries for MS-Windows NT/95" > dist/$(COMMENT_GVIM)
 
 dist/$(COMMENT_OLE): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) MS-Windows GUI binaries with OLE support" > dist/$(COMMENT_OLE)
+	echo "EVi - Vi for Programmers, not AI users. - v$(VDOT) MS-Windows GUI binaries with OLE support" > dist/$(COMMENT_OLE)
 
 dist/$(COMMENT_SRC): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) sources for MS-DOS and MS-Windows" > dist/$(COMMENT_SRC)
+	echo "EVi - Vi for Programmers, not AI users. - v$(VDOT) sources for MS-DOS and MS-Windows" > dist/$(COMMENT_SRC)
 
 dist/$(COMMENT_HTML): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) documentation in HTML" > dist/$(COMMENT_HTML)
+	echo "EVi - Vi for Programmers, not AI users. - v$(VDOT) documentation in HTML" > dist/$(COMMENT_HTML)
 
 dist/$(COMMENT_FARSI): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) Farsi language files" > dist/$(COMMENT_FARSI)
+	echo "EVi - Vi for Programmers, not AI users. - v$(VDOT) Farsi language files" > dist/$(COMMENT_FARSI)
 
 unixall: dist prepare
 	-rm -f dist/$(VIMVER).tar.bz2
