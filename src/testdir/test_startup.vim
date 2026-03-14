@@ -1248,24 +1248,24 @@ func Test_progname()
   "  |            |     |    |    |        |    +--- :messages
   "  |            |     |    |    |        |    |
   let expectations = {
-  \ 'vim':      ['n',  '0', '0', '0',   '200', ''],
-  \ 'gvim':     ['n',  '0', '0', '0',   '200', ''],
+  \ 'evi':      ['n',  '0', '0', '0',   '200', ''],
+  \ 'gevi':     ['n',  '0', '0', '0',   '200', ''],
   \ 'ex':       ['ce', '0', '0', '0',   '200', ''],
   \ 'exim':     ['cv', '0', '0', '0',   '200', ''],
   \ 'view':     ['n',  '0', '0', '1', '10000', ''],
   \ 'gview':    ['n',  '0', '0', '1', '10000', ''],
-  \ 'evim':     ['n',  '1', '0', '0',   '200', ''],
+  \ 'eevi':     ['n',  '1', '0', '0',   '200', ''],
   \ 'eview':    ['n',  '1', '0', '1', '10000', ''],
-  \ 'rvim':     ['n',  '0', '0', '0',   '200', 'line    1: E145: Shell commands and some functionality not allowed in rvim'],
-  \ 'rgvim':    ['n',  '0', '0', '0',   '200', 'line    1: E145: Shell commands and some functionality not allowed in rvim'],
+  \ 'revi':     ['n',  '0', '0', '0',   '200', 'line    1: E145: Shell commands and some functionality not allowed in rvim'],
+  \ 'rgevi':    ['n',  '0', '0', '0',   '200', 'line    1: E145: Shell commands and some functionality not allowed in rvim'],
   \ 'rview':    ['n',  '0', '0', '1', '10000', 'line    1: E145: Shell commands and some functionality not allowed in rvim'],
   \ 'rgview':   ['n',  '0', '0', '1', '10000', 'line    1: E145: Shell commands and some functionality not allowed in rvim'],
-  \ 'vimdiff':  ['n',  '0', '1', '0',   '200', ''],
-  \ 'gvimdiff': ['n',  '0', '1', '0',   '200', '']}
+  \ 'evidiff':  ['n',  '0', '1', '0',   '200', ''],
+  \ 'gevidiff': ['n',  '0', '1', '0',   '200', '']}
 
-  let prognames = ['vim', 'gvim', 'ex', 'exim', 'view', 'gview',
-  \                'evim', 'eview', 'rvim', 'rgvim', 'rview', 'rgview',
-  \                'vimdiff', 'gvimdiff']
+  let prognames = ['evi', 'gevi', 'ex', 'exim', 'view', 'gview',
+  \                'eevi', 'eview', 'revi', 'rgevi', 'rview', 'rgview',
+  \                'evidiff', 'gevidiff']
 
   for progname in prognames
     let run_with_gui = (progname =~# 'g') || (has('gui') && (progname ==# 'evim' || progname ==# 'eview'))
